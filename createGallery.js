@@ -69,7 +69,7 @@
             removeActiveClass();   
         }
         
-        if (event.key === 'ArrowRight') {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown' ) {
           event.preventDefault();
           if (index === gallery.length - 1){
             index -= gallery.length;
@@ -78,7 +78,7 @@
           refs.lightboxImg.src = gallery[index].original;             
         }
 
-        if (event.key === 'ArrowLeft') {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
           event.preventDefault();
           if (index === 0){
             index += gallery.length;
