@@ -6,7 +6,10 @@
     closeEl: document.querySelector('.lightbox__button'),
     lightboxImg: document.querySelector('.lightbox__image'),
     lightboxOverlay: document.querySelector('.lightbox__overlay'),
+    
      }
+
+     
  
 
  
@@ -35,11 +38,8 @@
     refs.closeEl.addEventListener('click', onClose);
     refs.lightboxOverlay.addEventListener('click', onClose);
     document.addEventListener('keydown', onPressKey);
-    
-
-    
-    let index;
-    
+     
+    let index;    
 
     function onClick(event){
         event.preventDefault();
@@ -50,7 +50,8 @@
         removeActiveClass();
         removeImgSrc();
         refs.lightboxEl.classList.add('is-open');
-        refs.lightboxImg.src = event.target.dataset.source;        
+        refs.lightboxImg.src = event.target.dataset.source; 
+        index = event.target.dataset.index;  
     }
     
     function removeActiveClass() {
@@ -63,26 +64,27 @@
         refs.lightboxImg.src = '';
     }
     function onPressKey (event){
-        console.log(event.key);
+       
         if (event.key === 'Escape'){
             removeActiveClass();   
         }
-        if (event.key === 'ArrowLeft') {
-            console.log(event.target)
-            let eventChildren = event.target.children[0] 
-            // console.log(eventChildren.dataset.index);
-            index = eventChildren.dataset.index - 1;
-            console.log('index', index);
-            refs.lightboxImg.src = gallery[index].original; 
-            
+        
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          if (index === gallery.length - 1){
+            index -= gallery.length;
+          }
+           index += 1;
+          refs.lightboxImg.src = gallery[index].original;             
         }
-      
-        // if (event.key === 'ArrowRight') {
-        //     const eventChildren = event.target.children[0] 
-        //     console.log(eventChildren.dataset.index);
-        //     index = eventChildren.dataset.index + 1;
-        //     console.log(gallery[index]);
-        //     refs.lightboxImg.src = gallery[index].original           
-        // }
+
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          if (index === 0){
+            index += gallery.length;
+          }
+           index -= 1;
+          refs.lightboxImg.src = gallery[index].original;    
+        }              
     }
    
