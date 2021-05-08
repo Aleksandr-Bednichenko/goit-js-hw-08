@@ -37,7 +37,7 @@
     refs.galleryList.addEventListener('click', onClick);
     refs.closeEl.addEventListener('click', onClose);
     refs.lightboxOverlay.addEventListener('click', onClose);
-    document.addEventListener('keydown', onPressKey);
+    
      
     let index;    
 
@@ -47,8 +47,9 @@
         if (!onClickImage) {
             return;
         }
-        removeActiveClass();
-        removeImgSrc();
+        document.addEventListener('keydown', onPressKey);
+        // removeActiveClass();
+        
         refs.lightboxEl.classList.add('is-open');
         refs.lightboxImg.src = event.target.dataset.source; 
         index = event.target.dataset.index;  
@@ -59,6 +60,8 @@
     }
     function onClose(){
         removeActiveClass();
+        document.removeEventListener('keydown', onPressKey);
+        removeImgSrc();
     }
     function removeImgSrc(){
         refs.lightboxImg.src = '';
@@ -66,7 +69,7 @@
     function onPressKey (event){
        
         if (event.key === 'Escape'){
-            removeActiveClass();   
+            onClose();   
         }
         
         if (event.key === 'ArrowRight' || event.key === 'ArrowDown' ) {
